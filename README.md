@@ -84,11 +84,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ```
 
 ### 2.  다크 모드 설정
-TBU @솔
+앱 실행 시 / 카카오 스토리 앱의 다크모드 설정 변경 혹은 앱 다크모드 설정이 디바이스 설정을 따라 갈 경우에는 디바이스 다크모드 설정 변경 시마다
+GripSDK의 `setDartMode(_ isDarkMode: Bool)` 메소드의 호출이 필요합니다.
+
+해당 경우마다 다크모드로 변경이 필요하다면 `true`를, 라이트모드로 변경이 필요하다면 `false`를 파라미터에 입력해주시면 됩니다.
 
 ### 3. 동영상 자동 재생 설정
-TBU @솔
+앱 실행 시 / 카카오 스토리 앱의 '동영상 자동 재생' 설정 변경 시 / 사용자의 네트워크 변경 시마다 
+GripSDK의 `setAutoPlayEnvironment(_ allowAutoPlay: Bool)` 메소드의 호출이 필요합니다.
 
+해당 경우마다 동영상 자동 재생 설정과 사용자 네트워크(WiFi or Cellular)를 비교해 동영상 자동 재생이 가능하다면 `true`를, 불가하다면 `false`를 파라미터에 입력해주시면 됩니다.
 
 ## 홈 피드 연동
 TBU @현욱
