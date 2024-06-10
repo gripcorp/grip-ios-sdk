@@ -122,6 +122,7 @@ GripSDK.requestInitialContents { result in
 }
 ```
 
+
 화면 새로고침 시 아래 메서드 호출이 필요합니다. 마찬가지로 `result` 값이 `false`인 경우 홈 컴포넌트 숨김 처리가 필요합니다.
 ```swift
 GripSDK.requestContents { result in
@@ -130,6 +131,39 @@ GripSDK.requestContents { result in
     // 에러 처리: 홈 컴포넌트 숨김 처리
 }
 ```
+
+
+홈 컴포넌트 중 하단 버튼이 터치됐음을 GripSDK에 알리기 위해 해당 시점에 아래 메서드 호출이 필요합니다.
+```swift
+GripSDK.notifyFooterButtonTapped()
+```
+```swift
+// Example
+footerButton.addAction(UIAction { _ in
+    GripSDK.notifyFooterButtonTapped()
+}, for: .touchUpInside)
+```
+
+홈 컴포넌트가 포함된 Cell의 컬렉션뷰가 포함된 홈 뷰컨트롤러의 `viewDidAppear`, `viewDidDisappear` 메소드가 호출될 때마다 아래의 메소드 호출이 필요합니다.
+```swift
+GripSDK.notifyHomeViewDidAppear()
+GripSDK.notifyHomeViewDidDisappear()
+```
+```swift
+// Example
+class HomeViewController: UIViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        GripSDK.notifyHomeViewDidAppear()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        GripSDK.notifyHomeViewDidDisappear()
+    }
+}
+```
+
 
 ### 홈 컴포넌트 UI 연동
 홈 컴포넌트 UI의 높이값은 `GripSDK.gripContentViewHeight` 메서드를 호출하여 얻을 수 있습니다.
@@ -182,6 +216,8 @@ func willOpenUrlToPlayVideo(url: GripURL) {
     }
 }
 ```
+
+
 
 ## 커머스탭 연동
 커머스탭 ViewController는 `GripSDK.makeGripSubTabViewController()`를 호출하여 인스턴스를 얻을 수 있습니다.
