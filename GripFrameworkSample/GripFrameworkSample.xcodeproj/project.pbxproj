@@ -8,24 +8,37 @@
 
 /* Begin PBXBuildFile section */
 		849C72DC1670666DC810FB0B /* Pods_GripFrameworkSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF526D5C06638D2C91E818B /* Pods_GripFrameworkSample.framework */; };
+		DB6B04CB2C17355F004EF001 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB6B04C92C17355F004EF001 /* LaunchScreen.storyboard */; };
+		DB6B04CC2C173560004EF001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB6B04CA2C17355F004EF001 /* Assets.xcassets */; };
+		DB6B04D42C173573004EF001 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B04CE2C173573004EF001 /* FeedCollectionViewCell.swift */; };
+		DB6B04D52C173573004EF001 /* SampleNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B04CF2C173573004EF001 /* SampleNavigator.swift */; };
+		DB6B04D62C173573004EF001 /* GripSDKTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B04D02C173573004EF001 /* GripSDKTabBarController.swift */; };
+		DB6B04D72C173573004EF001 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B04D12C173573004EF001 /* AudioManager.swift */; };
+		DB6B04D82C173573004EF001 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B04D22C173573004EF001 /* OptionsViewController.swift */; };
+		DB6B04D92C173573004EF001 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B04D32C173573004EF001 /* FeedViewController.swift */; };
 		DBA07FA32C1722A7000926F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA07FA22C1722A7000926F9 /* AppDelegate.swift */; };
 		DBA07FA52C1722A7000926F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA07FA42C1722A7000926F9 /* SceneDelegate.swift */; };
-		DBA07FA72C1722A7000926F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA07FA62C1722A7000926F9 /* ViewController.swift */; };
-		DBA07FAA2C1722A7000926F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA07FA82C1722A7000926F9 /* Main.storyboard */; };
-		DBA07FAC2C1722A8000926F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA07FAB2C1722A8000926F9 /* Assets.xcassets */; };
-		DBA07FAF2C1722A8000926F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA07FAD2C1722A8000926F9 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1823502BB3453393E1629105 /* Pods-GripFrameworkSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GripFrameworkSample.release.xcconfig"; path = "Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample.release.xcconfig"; sourceTree = "<group>"; };
 		ABF526D5C06638D2C91E818B /* Pods_GripFrameworkSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GripFrameworkSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB6B04C92C17355F004EF001 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DB6B04CA2C17355F004EF001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB6B04CE2C173573004EF001 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB6B04CF2C173573004EF001 /* SampleNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleNavigator.swift; sourceTree = "<group>"; };
+		DB6B04D02C173573004EF001 /* GripSDKTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GripSDKTabBarController.swift; sourceTree = "<group>"; };
+		DB6B04D12C173573004EF001 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		DB6B04D22C173573004EF001 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		DB6B04D32C173573004EF001 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		DB6B04DA2C17444B004EF001 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB6B04DE2C174450004EF001 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB6B04E12C174453004EF001 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB6B04E42C174455004EF001 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB6B04E72C174459004EF001 /* RxAppState.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxAppState.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA07F9F2C1722A7000926F9 /* GripFrameworkSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GripFrameworkSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA07FA22C1722A7000926F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA07FA42C1722A7000926F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DBA07FA62C1722A7000926F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DBA07FA92C1722A7000926F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DBA07FAB2C1722A8000926F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DBA07FAE2C1722A8000926F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBA07FB02C1722A8000926F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD542D104ED40BCFE22C53CE /* Pods-GripFrameworkSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GripFrameworkSample.debug.xcconfig"; path = "Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +58,11 @@
 		1D1DA8DBAE91C5863E1AC713 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB6B04E72C174459004EF001 /* RxAppState.framework */,
+				DB6B04E42C174455004EF001 /* Reachability.framework */,
+				DB6B04E12C174453004EF001 /* Moya.framework */,
+				DB6B04DE2C174450004EF001 /* Alamofire.framework */,
+				DB6B04DA2C17444B004EF001 /* RxSwift.framework */,
 				ABF526D5C06638D2C91E818B /* Pods_GripFrameworkSample.framework */,
 			);
 			name = Frameworks;
@@ -57,6 +75,28 @@
 				1823502BB3453393E1629105 /* Pods-GripFrameworkSample.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DB6B04C82C17355F004EF001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DB6B04C92C17355F004EF001 /* LaunchScreen.storyboard */,
+				DB6B04CA2C17355F004EF001 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DB6B04CD2C173573004EF001 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DB6B04CE2C173573004EF001 /* FeedCollectionViewCell.swift */,
+				DB6B04CF2C173573004EF001 /* SampleNavigator.swift */,
+				DB6B04D02C173573004EF001 /* GripSDKTabBarController.swift */,
+				DB6B04D12C173573004EF001 /* AudioManager.swift */,
+				DB6B04D22C173573004EF001 /* OptionsViewController.swift */,
+				DB6B04D32C173573004EF001 /* FeedViewController.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		DBA07F962C1722A7000926F9 = {
@@ -80,12 +120,10 @@
 		DBA07FA12C1722A7000926F9 /* GripFrameworkSample */ = {
 			isa = PBXGroup;
 			children = (
+				DB6B04CD2C173573004EF001 /* Sources */,
+				DB6B04C82C17355F004EF001 /* Resources */,
 				DBA07FA22C1722A7000926F9 /* AppDelegate.swift */,
 				DBA07FA42C1722A7000926F9 /* SceneDelegate.swift */,
-				DBA07FA62C1722A7000926F9 /* ViewController.swift */,
-				DBA07FA82C1722A7000926F9 /* Main.storyboard */,
-				DBA07FAB2C1722A8000926F9 /* Assets.xcassets */,
-				DBA07FAD2C1722A8000926F9 /* LaunchScreen.storyboard */,
 				DBA07FB02C1722A8000926F9 /* Info.plist */,
 			);
 			path = GripFrameworkSample;
@@ -151,9 +189,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBA07FAF2C1722A8000926F9 /* LaunchScreen.storyboard in Resources */,
-				DBA07FAC2C1722A8000926F9 /* Assets.xcassets in Resources */,
-				DBA07FAA2C1722A7000926F9 /* Main.storyboard in Resources */,
+				DB6B04CB2C17355F004EF001 /* LaunchScreen.storyboard in Resources */,
+				DB6B04CC2C173560004EF001 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,32 +243,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBA07FA72C1722A7000926F9 /* ViewController.swift in Sources */,
+				DB6B04D92C173573004EF001 /* FeedViewController.swift in Sources */,
+				DB6B04D82C173573004EF001 /* OptionsViewController.swift in Sources */,
+				DB6B04D72C173573004EF001 /* AudioManager.swift in Sources */,
 				DBA07FA32C1722A7000926F9 /* AppDelegate.swift in Sources */,
+				DB6B04D42C173573004EF001 /* FeedCollectionViewCell.swift in Sources */,
+				DB6B04D52C173573004EF001 /* SampleNavigator.swift in Sources */,
+				DB6B04D62C173573004EF001 /* GripSDKTabBarController.swift in Sources */,
 				DBA07FA52C1722A7000926F9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		DBA07FA82C1722A7000926F9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DBA07FA92C1722A7000926F9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		DBA07FAD2C1722A8000926F9 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DBA07FAE2C1722A8000926F9 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DBA07FB12C1722A8000926F9 /* Debug */ = {
@@ -366,7 +389,6 @@
 				INFOPLIST_FILE = GripFrameworkSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -395,7 +417,6 @@
 				INFOPLIST_FILE = GripFrameworkSample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

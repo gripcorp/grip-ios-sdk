@@ -1,36 +1,47 @@
 //
 //  AppDelegate.swift
-//  GripFrameworkSample
+//  Grip
 //
-//  Created by Suejinv on 2024/06/10.
+//  Created by Grip on 24/05/2024
+//  Copyright © 2023 Grip Corp. All rights reserved.
 //
 
+import GripFramework
 import UIKit
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+    private var navigator: SampleNavigator?
 
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        // 다크모드 변동 여부를 확인하기 위함
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeUserInterfaceStyle), name: UIApplication.didBecomeActiveNotification, object: nil)
 
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        let isDarkMode = window.traitCollection.userInterfaceStyle == .dark     // 현재 DarMode인지 확인
+        let autoPlayOption = GripSDK.VideoAutoPlayOption.onlyWifi                                              // 임의로 AutoPlay를 false로 설정
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let config = GripSDK.Config(appKey: "456e7eb51efe4857bfcf6e46312e2c76", appName: "Kakaostory", appBundleID: "com.kakaocorp.kakaostory", appVersion: "3.1.4", phase: .debug, isDarkMode: isDarkMode, autoPlayOption: autoPlayOption)
+        GripSDK.initialize(config: config) { result in
+            print("@@@initialize done: \(result)")
+        }
+
+        self.window = window
+        navigator = SampleNavigator(window: window)
+        navigator?.start()
+
         return true
     }
 
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    @objc
+    private func didChangeUserInterfaceStyle(notification: NSNotification) {
+        if let window = window {
+            if window.traitCollection.userInterfaceStyle == .dark {
+                GripSDK.setDarkMode(true)
+            } else {
+                GripSDK.setDarkMode(false)
+            }
+        }
     }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-
 }
-
