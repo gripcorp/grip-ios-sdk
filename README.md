@@ -139,7 +139,7 @@ func collectionView(_ collectionView: UICollectionView, layout collectionViewLay
 }
 ```
 
-홈 컴포넌트 UI는 `GripSDK.makeGripContentView(completion:)`를 호출하여 인스턴스를 얻을 수 있고, completion handler에 Header, Footer 메타 정보를 제공합니다. 홈 컴포넌트 UI는 내부적으로 데이터를 받아와서 lazy하게 UI를 로드합니다.
+홈 컴포넌트 UI는 `GripSDK.makeGripContentView(completion:)`를 호출하여 인스턴스를 얻을 수 있고, completion handler에 Header, Footer 메타 정보를 제공합니다. SDK 내부적으로 데이터를 받아와서 홈 컴포넌트 UI를 lazy하게 로드합니다.
 ```swift
 let gripContentView = GripSDK.makeGripContentView { supplementaryInfo in
     iconImageView.image = supplementaryInfo?.headerIconImage
@@ -164,11 +164,11 @@ func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: U
 `GripContentView` 내에서 이벤트가 발생하면 아래 `GripContentViewDelegate` delegate 메서드가 호출됩니다.
 ```swift
 func didChangeMuteState(to isMuted: Bool) {
-    // 동영상 음소거 버튼 클릭 시 호출됨. 필요시 서비스 앱 정책에 따라 오디오 세션 (AVAudioSession) 처리
+    // 동영상 음소거 버튼 클릭 시 호출됨. 필요시 서비스 앱 정책에 따라 오디오 세션 (AVAudioSession) 처리 필요함
 }
 
 func didTapPlayButton() {
-    // 동영상 재생 버튼 클릭 시 호출됨(동영상 자동 재생이 아닌 경우에만 호출됨). 동영상 자동 재생 설정 팝업 노출 필요함
+    // 동영상 재생 버튼 클릭 시 호출됨(동영상 자동 재생이 아닌 경우에만 호출됨). 서비스 앱에서 동영상 자동 재생 설정 팝업 노출 필요함
 }
 
 func willOpenUrlToPlayVideo(url: GripURL) {
