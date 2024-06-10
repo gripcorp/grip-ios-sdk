@@ -187,11 +187,11 @@ contentView.addSubview(gripContentView)
 동영상 자동 재생 처리를 위해 Cell이 보여지고 사라질 때 아래 메서드를 호출해야 합니다.
 ```swift
 func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    gripContentView?.activateAutoPlay()
+    gripContentView?.notifyCellWillDisplay()
 }
 
 func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    gripContentView?.deactivateAutoPlay()
+    gripContentView?.notifyCellDidEndDisplaying()
 }
 ```
 
