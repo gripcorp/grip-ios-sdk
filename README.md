@@ -5,7 +5,7 @@
     - [CocoaPods 사용](#cocoapods-사용)
       - [참고: 외부 라이브러리 의존성](#참고-외부-라이브러리-의존성)
   - [프로젝트 설정](#프로젝트-설정)
-    - [커스텀 URL 스킴](#커스텀-url-스킴)
+    - [앱 실행 허용 목록](#앱-실행-허용-목록)
   - [초기화](#초기화)
     - [1. GripSDK 초기화](#1-gripsdk-초기화)
     - [2.  다크 모드 대응](#2--다크-모드-대응)
@@ -41,26 +41,19 @@ Grip SDK는 다음과 같은 외부라이브러리를 사용합니다.
 - ReactiveX iOS SDK: RxSwift, RxCocoa, RxAppState, RxMoya
 
 ## 프로젝트 설정
-### 커스텀 URL 스킴
-그립앱 실행을 위해 커스텀 URL 스킴 설정을 합니다.
-1. App Target > Info > URL Types 추가
-2. URL Schemes 란에 `gripshow` 추가
+### 앱 실행 허용 목록
+SDK로 **그립앱**을 실행 하려면 Info.plist 파일에 앱 실행 허용 목록을 설정해야 합니다.
+1. Info > `Queried URL Schemes` 추가
+2. 해당 키의 `Item` 값에 `gripshow` 추가
 
 ![예시이미지](.DocumentResources/gripshow_url_scheme.png)
 
 
 위 설정은 Info.plist 파일을 직접 수정해 적용할 수도 있습니다. 
 ```
-<key>CFBundleURLTypes</key>
+<key>LSApplicationQueriesSchemes</key>
 <array>
-    <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>gripshow</string>
-        </array>
-    </dict>
+	<string>gripshow</string>
 </array>
 ```
 
