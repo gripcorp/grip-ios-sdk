@@ -76,7 +76,6 @@ import GripFramework
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // *** appKey 발급은 그립 담당자에 문의주세요 ***
         let config = GripSDK.Config(appKey: "<APP_KEY>:", 
                                     appName: "<APP_NAME>", 
                                     appBundleID: "<YOUR_APP_BUNDLE_ID>", 
