@@ -1,7 +1,6 @@
 - [요구사항](#요구사항)
 - [SDK 설치](#sdk-설치)
   - [CocoaPods 사용](#cocoapods-사용)
-    - [참고: 외부 라이브러리 의존성](#참고-외부-라이브러리-의존성)
 - [프로젝트 설정](#프로젝트-설정)
   - [앱 실행 허용 목록](#앱-실행-허용-목록)
 - [초기화](#초기화)
@@ -11,34 +10,45 @@
 - [홈 컴포넌트 연동](#홈-컴포넌트-연동)
   - [홈 컴포넌트 노출 여부 판단](#홈-컴포넌트-노출-여부-판단)
   - [홈 컴포넌트 UI 연동](#홈-컴포넌트-ui-연동)
+  - [홈 컴포넌트 동영상 자동 재생 처리](#홈-컴포넌트-동영상-자동-재생-처리)
 - [커머스탭 연동](#커머스탭-연동)
+- [그립 인앱 브라우저 연동](#그립-인앱-브라우저-연동)
 
-
-## 요구사항
+# 요구사항
 - iOS Deployment Target 14.0 이상
 - Xcode 15.0 이상 
 - Swift 5.0 이상
 
-## SDK 설치
-### CocoaPods 사용
+# SDK 설치
+## CocoaPods 사용
 
 1. `Podfile`에 다음 줄을 추가하세요.
     ```ruby
-    pod 'GripFramework'
+    pod 'GripFramework', ~> '1.0'
+
+   ## Workaround: Runtime error occurs when an XCFramework contains CocoaPods dependencies
+   ## https://github.com/CocoaPods/CocoaPods/issues/9775
+   post_install do |installer|
+     installer.pods_project.targets.each do |target|
+       target.build_configurations.each do |config|
+         config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+       end
+     end
+   end
     ```
 
 2. 터미널에서 다음 명령어를 실행하세요.
     ```sh
-    pod install
+   pod install
     ```
 
-#### 참고: 외부 라이브러리 의존성
+## 참고: 외부 라이브러리 의존성
 Grip SDK는 다음과 같은 외부라이브러리를 사용합니다. 
-- iOS SDK: Moya, Alamofire, SnapKit, SDWebImage, Reachability
-- ReactiveX iOS SDK: RxSwift, RxCocoa, RxAppState, RxMoya
+- iOS SDK: Moya, SnapKit, SDWebImage, Reachability
+- ReactiveX iOS SDK: RxSwift, RxCocoa, RxAppState
 
-## 프로젝트 설정
-### 앱 실행 허용 목록
+# 프로젝트 설정
+## 앱 실행 허용 목록
 SDK로 **그립앱**을 실행 하려면 Info.plist 파일에 앱 실행 허용 목록을 설정해야 합니다.
 1. Info > `Queried URL Schemes` 추가
 2. 해당 키의 `Item` 값에 `gripshow` 추가
@@ -54,9 +64,9 @@ SDK로 **그립앱**을 실행 하려면 Info.plist 파일에 앱 실행 허용 
 </array>
 ```
 
-## 초기화
+# 초기화
 
-### 1. GripSDK 초기화
+## 1. GripSDK 초기화
 AppDelegate 또는 SceneDelegate에서 GripSDK를 초기화합니다.
 **아래 appKey, appName 발급은 그립 담당자에 문의주세요**
 - appKey: 그립에서 발급한 appKey
@@ -95,13 +105,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-### 2. 다크 모드 대응
+## 2. 다크 모드 대응
 다크 모드 설정이 변경될 때마다 아래 메서드 호출이 필요합니다. 다크 모드일 때는 `true`, 라이트 모드일 때는 `false`를 파라미터에 넣어주세요.
 ```swift
 GripSDK.setDarkMode(_ isDarkMode: Bool)
 ```
 
-### 3. 동영상 자동 재생 설정
+## 3. 동영상 자동 재생 설정
 동영상 자동 재생 설정이 변경될 때마다 아래 메서드 호출이 필요합니다. SDK 내부에서 해당 옵션과 네트워크 상태 (Wi-Fi 또는 Cellular)를 비교해 동영상 자동 재생을 하게 됩니다.
 - 항상 자동 재생: `all`
 - Wi-Fi에서만 자동 재생: `onlyWifi`
@@ -110,10 +120,10 @@ GripSDK.setDarkMode(_ isDarkMode: Bool)
 GripSDK.setVideoAutoPlayOption(_ option: VideoAutoPlayOption)
 ```
 
-## 홈 컴포넌트 연동
+# 홈 컴포넌트 연동
 
-### 홈 컴포넌트 노출 여부 판단
-홈 컴포넌트 노출 여부를 파악하기 위해 서비스 앱의 홈 API를 호출할 때 아래 메서드도 같이 호출이 필요합니다. `result` 값이 `false`인 경우 홈 컴포넌트 숨김 처리가 필요합니다.
+## 홈 컴포넌트 노출 여부 판단
+홈 컴포넌트 노출 여부를 판단하기 위해 서비스 앱의 홈 API를 호출할 때 아래 메서드도 같이 호출이 필요합니다. `result` 값이 `false`인 경우 홈 컴포넌트 숨김 처리가 필요합니다.
 ```swift
 GripSDK.requestInitialContents { result in
      guard result == false else { return }
@@ -123,7 +133,7 @@ GripSDK.requestInitialContents { result in
 ```
 
 
-화면 새로고침 시 아래 메서드 호출이 필요합니다. 마찬가지로 `result` 값이 `false`인 경우 홈 컴포넌트 숨김 처리가 필요합니다.
+Pull to refresh시 아래 메서드 호출이 필요합니다. 마찬가지로 `result` 값이 `false`인 경우 홈 컴포넌트 숨김 처리가 필요합니다.
 ```swift
 GripSDK.requestContents { result in
      guard result == false else { return }
@@ -132,40 +142,7 @@ GripSDK.requestContents { result in
 }
 ```
 
-
-홈 컴포넌트 중 하단 버튼이 터치됐음을 GripSDK에 알리기 위해 해당 시점에 아래 메서드 호출이 필요합니다.
-```swift
-GripSDK.notifyFooterButtonTapped()
-```
-```swift
-// Example
-footerButton.addAction(UIAction { _ in
-    GripSDK.notifyFooterButtonTapped()
-}, for: .touchUpInside)
-```
-
-홈 컴포넌트가 포함된 Cell의 컬렉션뷰가 포함된 홈 뷰컨트롤러의 `viewDidAppear`, `viewDidDisappear` 메소드가 호출될 때마다 아래의 메소드 호출이 필요합니다.
-```swift
-GripSDK.notifyHomeViewDidAppear()
-GripSDK.notifyHomeViewDidDisappear()
-```
-```swift
-// Example
-class HomeViewController: UIViewController {
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        GripSDK.notifyHomeViewDidAppear()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        GripSDK.notifyHomeViewDidDisappear()
-    }
-}
-```
-
-
-### 홈 컴포넌트 UI 연동
+## 홈 컴포넌트 UI 연동
 홈 컴포넌트 UI의 높이값은 `GripSDK.gripContentViewHeight` 메서드를 호출하여 얻을 수 있습니다.
 ```swift
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) > CGSize {
@@ -173,7 +150,7 @@ func collectionView(_ collectionView: UICollectionView, layout collectionViewLay
 }
 ```
 
-홈 컴포넌트 UI는 `GripSDK.makeGripContentView(completion:)`를 호출하여 인스턴스를 얻을 수 있고, completion handler에 Header, Footer 메타 정보를 제공합니다. SDK 내부적으로 데이터를 받아와서 홈 컴포넌트 UI를 lazy하게 로드합니다.
+홈 컴포넌트 UI는 `GripSDK.makeGripContentView(completion:)`를 호출하여 인스턴스를 얻을 수 있고, completion handler에 Header, Footer 메타 정보를 제공합니다. SDK 내부적으로 데이터를 받아서 lazy하게 UI를 로드합니다.
 ```swift
 let gripContentView = GripSDK.makeGripContentView { supplementaryInfo in
     iconImageView.image = supplementaryInfo?.headerIconImage
@@ -182,17 +159,6 @@ let gripContentView = GripSDK.makeGripContentView { supplementaryInfo in
 }
 gripContentView.delegate = self
 contentView.addSubview(gripContentView)
-```
-
-동영상 자동 재생 처리를 위해 Cell이 보여지고 사라질 때 아래 메서드를 호출해야 합니다.
-```swift
-func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    gripContentView?.notifyCellWillDisplay()
-}
-
-func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    gripContentView?.notifyCellDidEndDisplaying()
-}
 ```
 
 `GripContentView` 내에서 이벤트가 발생하면 아래 `GripContentViewDelegate` delegate 메서드가 호출됩니다.
@@ -217,9 +183,44 @@ func willOpenUrlToPlayVideo(url: GripURL) {
 }
 ```
 
+홈 컴포넌트 푸터 버튼 클릭시 `GripSDK.notifyFooterButtonTapped()` 메서드 호출이 필요합니다. 카카오 스토리의 경우 3탭(커머스탭)으로 이동하는 처리도 필요합니다. 
+```swift
+footerButton.addAction(UIAction { _ in
+    // 카카오 스토리의 경우 3탭(커머스탭)으로 이동
+    GripSDK.gripContentViewFooterButtonTapped()
+}, for: .touchUpInside)
+```
 
+## 홈 컴포넌트 동영상 자동 재생 처리 
+동영상 자동 재생 처리를 위해 홈 컴포넌트 Cell이 보여지고 사라질 때 아래 메서드를 호출해야 합니다.
+```swift
+func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    gripContentView?.notifyCellWillDisplay()
+}
 
-## 커머스탭 연동
+func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    gripContentView?.notifyCellDidEndDisplaying()
+}
+```
+
+또한, 화면 전환시 동영상 자동 재생 처리를 위해 홈 컴포넌트를 포함하는 ViewController의 `viewDidAppear`, `viewDidDisappear` 메소드가 호출될 때 아래의 메소드 호출이 필요합니다.
+```swift
+class HomeViewController: UIViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        GripSDK.viewDidAppear()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        GripSDK.viewDidDisappear()
+    }
+}
+```
+
+# 커머스탭 연동
 커머스탭 ViewController는 `GripSDK.makeGripSubTabViewController()`를 호출하여 인스턴스를 얻을 수 있습니다.
 ```swift
 let viewController = GripSDK.makeGripSubTabViewController()
@@ -237,6 +238,23 @@ extension SampleNavigator: GripSubTabWebViewControllerDelegate {
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: true)
         }
+    }
+}
+```
+
+# 그립 인앱 브라우저 연동
+그립 인앱 브라우저 연동이 필요시에 아래와 같이 인앱 브라우저를 띄울 수 있습니다.
+```swift
+let viewController = GripSDK.makeGripInAppWebViewController(url: url)
+viewController.modalPresentationStyle = .fullScreen
+present(viewController, animated: true)
+```
+
+그립 인앱 브라우저에서 공유하기 버튼 클릭시 아래 `GripInAppWebViewControllerDelegate` delegate 메서드가 호출됩니다
+```swift
+extension SampleNavigator: GripInAppWebViewControllerDelegate {
+    func sharePage(url: URL) {
+        // 공유하기 팝업 노출 필요
     }
 }
 ```
