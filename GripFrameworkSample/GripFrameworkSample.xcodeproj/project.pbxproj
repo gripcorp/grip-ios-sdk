@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F0448520CB7DC5B6B6F5AC5 /* Pods_GripFrameworkSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAF4780BE39527FAD52E74A /* Pods_GripFrameworkSample.framework */; };
+		8BB501B06DBA85FEFD483FE3 /* Pods_GripFrameworkSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36677EF6174AD209EFC0359 /* Pods_GripFrameworkSample.framework */; };
 		DB6B04CB2C17355F004EF001 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB6B04C92C17355F004EF001 /* LaunchScreen.storyboard */; };
 		DB6B04CC2C173560004EF001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB6B04CA2C17355F004EF001 /* Assets.xcassets */; };
 		DB6B04D42C173573004EF001 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B04CE2C173573004EF001 /* FeedCollectionViewCell.swift */; };
@@ -21,8 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5418C7FFB3D4B43935094CCD /* Pods-GripFrameworkSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GripFrameworkSample.release.xcconfig"; path = "Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample.release.xcconfig"; sourceTree = "<group>"; };
-		D3584C7672D9F46266EAF959 /* Pods-GripFrameworkSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GripFrameworkSample.debug.xcconfig"; path = "Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample.debug.xcconfig"; sourceTree = "<group>"; };
+		33AA2A73EE9FF546E151BFAD /* Pods-GripFrameworkSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GripFrameworkSample.debug.xcconfig"; path = "Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample.debug.xcconfig"; sourceTree = "<group>"; };
+		A035663472DDB640D6ED25D6 /* Pods-GripFrameworkSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GripFrameworkSample.release.xcconfig"; path = "Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample.release.xcconfig"; sourceTree = "<group>"; };
+		B36677EF6174AD209EFC0359 /* Pods_GripFrameworkSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GripFrameworkSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6B04C92C17355F004EF001 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB6B04CA2C17355F004EF001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB6B04CE2C173573004EF001 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -31,16 +32,10 @@
 		DB6B04D12C173573004EF001 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		DB6B04D22C173573004EF001 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		DB6B04D32C173573004EF001 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		DB6B04DA2C17444B004EF001 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB6B04DE2C174450004EF001 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB6B04E12C174453004EF001 /* Moya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Moya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB6B04E42C174455004EF001 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB6B04E72C174459004EF001 /* RxAppState.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxAppState.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA07F9F2C1722A7000926F9 /* GripFrameworkSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GripFrameworkSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA07FA22C1722A7000926F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA07FA42C1722A7000926F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DBA07FB02C1722A8000926F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ECAF4780BE39527FAD52E74A /* Pods_GripFrameworkSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GripFrameworkSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F0448520CB7DC5B6B6F5AC5 /* Pods_GripFrameworkSample.framework in Frameworks */,
+				8BB501B06DBA85FEFD483FE3 /* Pods_GripFrameworkSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +53,7 @@
 		1D1DA8DBAE91C5863E1AC713 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DB6B04E72C174459004EF001 /* RxAppState.framework */,
-				DB6B04E42C174455004EF001 /* Reachability.framework */,
-				DB6B04E12C174453004EF001 /* Moya.framework */,
-				DB6B04DE2C174450004EF001 /* Alamofire.framework */,
-				DB6B04DA2C17444B004EF001 /* RxSwift.framework */,
-				ECAF4780BE39527FAD52E74A /* Pods_GripFrameworkSample.framework */,
+				B36677EF6174AD209EFC0359 /* Pods_GripFrameworkSample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -71,8 +61,8 @@
 		39594E2ABB611F76A04E5F28 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D3584C7672D9F46266EAF959 /* Pods-GripFrameworkSample.debug.xcconfig */,
-				5418C7FFB3D4B43935094CCD /* Pods-GripFrameworkSample.release.xcconfig */,
+				33AA2A73EE9FF546E151BFAD /* Pods-GripFrameworkSample.debug.xcconfig */,
+				A035663472DDB640D6ED25D6 /* Pods-GripFrameworkSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -136,11 +126,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBA07FB32C1722A8000926F9 /* Build configuration list for PBXNativeTarget "GripFrameworkSample" */;
 			buildPhases = (
-				D6102842E3D5D50807DD4F53 /* [CP] Check Pods Manifest.lock */,
+				760258A07330616D43601ADF /* [CP] Check Pods Manifest.lock */,
 				DBA07F9B2C1722A7000926F9 /* Sources */,
 				DBA07F9C2C1722A7000926F9 /* Frameworks */,
 				DBA07F9D2C1722A7000926F9 /* Resources */,
-				45FE2FD73AD0D5F48593EB0B /* [CP] Embed Pods Frameworks */,
+				A05AB9AB20CF10C35C9BF91B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,24 +187,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		45FE2FD73AD0D5F48593EB0B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D6102842E3D5D50807DD4F53 /* [CP] Check Pods Manifest.lock */ = {
+		760258A07330616D43601ADF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -234,6 +207,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A05AB9AB20CF10C35C9BF91B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GripFrameworkSample/Pods-GripFrameworkSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -378,7 +368,7 @@
 		};
 		DBA07FB42C1722A8000926F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3584C7672D9F46266EAF959 /* Pods-GripFrameworkSample.debug.xcconfig */;
+			baseConfigurationReference = 33AA2A73EE9FF546E151BFAD /* Pods-GripFrameworkSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -406,7 +396,7 @@
 		};
 		DBA07FB52C1722A8000926F9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5418C7FFB3D4B43935094CCD /* Pods-GripFrameworkSample.release.xcconfig */;
+			baseConfigurationReference = A035663472DDB640D6ED25D6 /* Pods-GripFrameworkSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
