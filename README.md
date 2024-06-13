@@ -88,8 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let config = GripSDK.Config(appKey: "<APP_KEY>:", 
                                     appName: "<APP_NAME>", 
-                                    appBundleID: "<YOUR_APP_BUNDLE_ID>", 
-                                    appVersion: "<YOUR_APP_VERSION>", 
                                     phase: .debug,
                                     isDarkMode: true,
                                     autoPlayOption: .wifi)
