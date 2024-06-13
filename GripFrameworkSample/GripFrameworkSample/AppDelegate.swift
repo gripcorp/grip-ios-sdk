@@ -15,23 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var navigator: SampleNavigator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        // 다크모드 변동 여부를 확인하기 위함
+
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeUserInterfaceStyle), name: UIApplication.didBecomeActiveNotification, object: nil)
 
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let isDarkMode = window.traitCollection.userInterfaceStyle == .dark     // 현재 DarMode인지 확인
-        let autoPlayOption = GripSDK.VideoAutoPlayOption.onlyWifi                                              // 임의로 AutoPlay를 false로 설정
+        let isDarkMode = getDarkModeOption(of: window)
+        let autoPlayOption = getAutoPlayOption()
 
-        // ⭐️ 테스트시 appKey, appName을 필수로 넣어주세요!!
-        let config = GripSDK.Config(appKey: "", 
-                                    appName: "GripFrameworkSample",
-                                    appBundleID: "grip.show.GripFrameworkSample",
-                                    appVersion: "0.0.1",
-                                    phase: .debug,
-                                    isDarkMode: isDarkMode,
-                                    autoPlayOption: autoPlayOption)
+        let config = GripConfig(appKey: "0a503b68e22747a3807596f31c68a6e4",
+                                appName: "GripSDKSample",
+                                phase: .debug,
+                                isDarkMode: isDarkMode,
+                                autoPlayOption: autoPlayOption)
         GripSDK.initialize(config: config) { result in
-            print("@@@initialize done: \(result)")
+            print("initialize result: \(result)")
         }
 
         self.window = window
@@ -50,5 +47,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 GripSDK.setDarkMode(false)
             }
         }
+    }
+
+    private func getDarkModeOption(of window: UIWindow) -> Bool {
+        let systemDarkModeOption = window.traitCollection.userInterfaceStyle
+        let userDefaultsDarkModeOption = UserDefaults.standard.object(forKey: UserDefaults.Key.darkMode.rawValue) as? OptionsViewController.DarkMode
+
+        switch userDefaultsDarkModeOption {
+        case .followSystem:
+            return systemDarkModeOption == .dark
+        case .light:
+            return false
+        case .dark:
+            return true
+        default:
+            UserDefaults.standard.set(OptionsViewController.DarkMode.followSystem.rawValue, forKey: UserDefaults.Key.darkMode.rawValue)
+            return systemDarkModeOption == .dark
+        }
+    }
+
+    private func getAutoPlayOption() -> GripVideoAutoPlayOption {
+        let userDefaultsAutoPlayOption = UserDefaults.standard.object(forKey: UserDefaults.Key.autoPlay.rawValue) as? OptionsViewController.AutoPlay
+
+        switch userDefaultsAutoPlayOption {
+        case .all:
+            UserDefaults.standard.set("항상 사용", forKey: UserDefaults.Key.autoPlay.rawValue)
+            return .all
+        case .onlyWifi:
+            return .onlyWifi
+        case .never:
+            return .none
+        default:
+            UserDefaults.standard.set(OptionsViewController.AutoPlay.all.rawValue, forKey: UserDefaults.Key.autoPlay.rawValue)
+            return .all
+        }
+    }
+}
+
+extension UserDefaults {
+    enum Key: String {
+        case autoPlay
+        case darkMode
     }
 }

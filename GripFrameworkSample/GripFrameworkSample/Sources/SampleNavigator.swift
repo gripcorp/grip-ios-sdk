@@ -32,11 +32,25 @@ final class SampleNavigator: NSObject {
     private weak var rootViewController: UIViewController?
     private let disposeBag = DisposeBag()
 
+    private var moveToMainBarBarObserver: NSObjectProtocol?
+
     init(window: UIWindow!) {
         self.window = window
         window.makeKeyAndVisible()
 
         super.init()
+
+        moveToMainBarBarObserver = NotificationCenter.default.addObserver(forName: .moveToMainTabBar, object: nil, queue: .main) { [weak self] notification in
+            guard let tabIndex = notification.userInfo?[NotificationCenter.UserInfoKey.tab.rawValue] as? Int else { return }
+
+            self?.moveToMainTabBar(tabIndex)
+        }
+    }
+
+    deinit {
+        if let moveToMainBarBarObserver {
+            NotificationCenter.default.removeObserver(moveToMainBarBarObserver)
+        }
     }
 
     // MARK: Public
@@ -69,6 +83,11 @@ final class SampleNavigator: NSObject {
             })
             .disposed(by: disposeBag)
     }
+
+    private func moveToMainTabBar(_ tabIndex: Int) {
+        let tabBarController = (mainViewController as? GripSDKTabBarController)
+        tabBarController?.selectedIndex = tabIndex
+    }
 }
 
 extension SampleNavigator: GripSubTabWebViewControllerDelegate {
@@ -88,4 +107,14 @@ extension SampleNavigator: GripInAppWebViewControllerDelegate {
     func sharePage(url: URL) {
         // 공유된 URL을 처리하는 로직
     }
+}
+
+extension NotificationCenter {
+    enum UserInfoKey: String {
+        case tab
+    }
+}
+
+extension Notification.Name {
+    static let moveToMainTabBar = NSNotification.Name("sample.app.moveToMainTabBar")
 }

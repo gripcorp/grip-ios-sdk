@@ -19,6 +19,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     private var contentTappedBlock: ((GripURL) -> Void)?
     private var playButtonTappedBlock: (() -> Void)?
     private var muteStateChangedBlock: ((Bool) -> Void)?
+    private var footerButtonTappedBlock: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,10 +34,12 @@ class FeedCollectionViewCell: UICollectionViewCell {
 
     func setItem(contentTappedBlock: @escaping (GripURL) -> Void,
                  playButtonTappedBlock: @escaping () -> Void,
-                 muteStateChangedBlock: @escaping (Bool) -> Void) {
+                 muteStateChangedBlock: @escaping (Bool) -> Void,
+                 footerButtonTappedBlock: @escaping () -> Void) {
         self.contentTappedBlock = contentTappedBlock
         self.playButtonTappedBlock = playButtonTappedBlock
         self.muteStateChangedBlock = muteStateChangedBlock
+        self.footerButtonTappedBlock = footerButtonTappedBlock
     }
 
     func setHeaderComponents(image: UIImage?, title: String) {
@@ -74,6 +77,11 @@ extension FeedCollectionViewCell: GripContentViewDelegate {
 
 // MARK: - Privates
 extension FeedCollectionViewCell {
+    @objc
+    private func footerButtonTapped() {
+        footerButtonTappedBlock?()
+    }
+
     private func setupViews() {
         self.backgroundColor = .white
         self.layer.masksToBounds = true
@@ -96,6 +104,7 @@ extension FeedCollectionViewCell {
         let footerButton = UIButton()
         footerButton.titleLabel?.font = .systemFont(ofSize: 14)
         footerButton.setTitleColor(.black, for: .normal)
+        footerButton.addTarget(self, action: #selector(footerButtonTapped), for: .touchUpInside)
         contentView.addSubview(footerButton)
         self.footerButton = footerButton
 

@@ -7,60 +7,142 @@
 //
 
 import GripFramework
-import RxSwift
 import UIKit
 
 final class OptionsViewController: UIViewController {
-    private weak var tableView: UITableView!
-    private var dataList: [String] = ["자동 재생", "다크 모드"]
-    private let autoPlayChangedSubject = PublishSubject<Bool>()
-    private let darkModeChangedSubject = PublishSubject<Bool>()
+    enum DarkMode: String, CaseIterable {
+        case followSystem
+        case light
+        case dark
 
-    private let disposeBag = DisposeBag()
+        init(rawValue: String) {
+            switch rawValue {
+            case "followSystem": self = .followSystem
+            case "light": self = .light
+            case "dark": self = .dark
+            default: self = .followSystem
+            }
+        }
+
+        var optionTitle: String {
+            switch self {
+            case .followSystem: return "시스템 설정 모드"
+            case .light: return "라이트 모드"
+            case .dark: return "다크 모드"
+            }
+        }
+    }
+
+    enum AutoPlay: String, CaseIterable {
+        case all
+        case onlyWifi
+        case never
+
+        init(rawValue: String) {
+            switch rawValue {
+            case "all": self = .all
+            case "onlyWifi": self = .onlyWifi
+            case "never": self = .never
+            default: self = .all
+            }
+        }
+
+        var optionTitle: String {
+            switch self {
+            case .all: return "항상 사용"
+            case .onlyWifi: return "Wi-Fi에서만 사용"
+            case .never: return "사용 안함"
+            }
+        }
+    }
+
+    private weak var tableView: UITableView!
+    private let headerData: [String] = ["자동 재생", "다크 모드"]
+    private let autoPlayOptions: [AutoPlay] = AutoPlay.allCases
+    private let darkModeOptions: [DarkMode] = DarkMode.allCases
+
+    private var selectedAutoPlayOption: AutoPlay = .all
+    private var selectedDarkModeOption: DarkMode = .followSystem
 
     init() {
         super.init(nibName: nil, bundle: nil)
         setupViews()
         setupLayoutConstraints()
-        bind()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let selectedAutoPlayOptionRawValue = UserDefaults.standard.string(forKey: UserDefaults.Key.autoPlay.rawValue) {
+            let selectedAutoPlayOption = AutoPlay(rawValue: selectedAutoPlayOptionRawValue)
+            self.selectedAutoPlayOption = selectedAutoPlayOption
+
+            let selectedAutoPlayOptionIndex = autoPlayOptions.firstIndex(of: selectedAutoPlayOption) ?? 0
+            tableView.cellForRow(at: IndexPath(row: selectedAutoPlayOptionIndex, section: 0))?.accessoryType = .checkmark
+        }
+
+        if let selectedDarkModeOptionRawValue = UserDefaults.standard.string(forKey: UserDefaults.Key.darkMode.rawValue) {
+            let selectedDarkModeOption = DarkMode(rawValue: selectedDarkModeOptionRawValue)
+            self.selectedDarkModeOption = selectedDarkModeOption
+
+            let selectedDarkModeOptionIndex = darkModeOptions.firstIndex(of: selectedDarkModeOption) ?? 0
+            tableView.cellForRow(at: IndexPath(row: selectedDarkModeOptionIndex, section: 1))?.accessoryType = .checkmark
+        }
+    }
 }
 
 extension OptionsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return headerData.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        switch section {
+        case 0: return autoPlayOptions.count
+        case 1: return darkModeOptions.count
+        default: return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = dataList[indexPath.row]
-        let cell: UITableViewCell
-        switch data {
-        case "자동 재생":
-            guard let switchCell = tableView.dequeueReusableCell(withIdentifier: "Settings", for: indexPath) as? SettingsSwitchTableViewCell else {
-                return UITableViewCell()
-            }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-            switchCell.title = "자동 재생"
-            switchCell.switchValueSubject = autoPlayChangedSubject.asObserver()
-            cell = switchCell
+        switch indexPath.section {
+        case 0:
+            cell.textLabel?.text = autoPlayOptions[indexPath.row].optionTitle
+            cell.accessoryType = selectedAutoPlayOption == autoPlayOptions[indexPath.row] ? .checkmark : .none
 
-        case "다크 모드":
-            guard let switchCell = tableView.dequeueReusableCell(withIdentifier: "Settings", for: indexPath) as? SettingsSwitchTableViewCell else {
-                return UITableViewCell()
-            }
+        case 1:
+            cell.textLabel?.text = darkModeOptions[indexPath.row].optionTitle
+            cell.accessoryType = selectedDarkModeOption == darkModeOptions[indexPath.row] ? .checkmark : .none
 
-            switchCell.title = "다크 모드"
-            switchCell.switchValueSubject = darkModeChangedSubject.asObserver()
-            cell = switchCell
-
-        default: cell = UITableViewCell()
+        default:
+            break
         }
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            selectedAutoPlayOption = autoPlayOptions[indexPath.row]
+            saveAutoPlayOption(to: autoPlayOptions[indexPath.row])
+        case 1:
+            selectedDarkModeOption = darkModeOptions[indexPath.row]
+            saveDarkModeOption(to: darkModeOptions[indexPath.row])
+        default: break
+        }
+
+        tableView.reloadData()
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return headerData[section]
     }
 }
 
@@ -71,36 +153,47 @@ extension OptionsViewController: UITableViewDelegate {
 }
 
 extension OptionsViewController {
-    private func bind() {
-        autoPlayChangedSubject.asObservable()
-            .subscribe(onNext: { allowAutoPlay in
-                // TODO: [sol6521] 임시 코드
-                let autoPlayOption: GripSDK.VideoAutoPlayOption
-                if allowAutoPlay {
-                    autoPlayOption = .all
-                } else {
-                    autoPlayOption = .none
-                }
+    private func saveAutoPlayOption(to option: AutoPlay) {
+        let autoPlayOption: GripVideoAutoPlayOption
+        switch option {
+        case .all:
+            autoPlayOption = .all
+        case .onlyWifi:
+            autoPlayOption = .onlyWifi
+        case .never:
+            autoPlayOption = .none
+        }
 
-                GripSDK.setAutoPlayOption(autoPlayOption)
-            })
-            .disposed(by: disposeBag)
+        UserDefaults.standard.set(option.rawValue, forKey: UserDefaults.Key.autoPlay.rawValue)
+        GripSDK.setAutoPlayOption(autoPlayOption)
+    }
 
-        darkModeChangedSubject.asObservable()
-            .subscribe(onNext: { isDarkMode in
-                GripSDK.setDarkMode(isDarkMode)
-            })
-            .disposed(by: disposeBag)
+    private func saveDarkModeOption(to option: DarkMode) {
+        let systemDarkModeOption = traitCollection.userInterfaceStyle
+
+        let isDarkMode: Bool
+        switch option {
+        case .followSystem:
+            isDarkMode = systemDarkModeOption == .dark
+        case .light:
+            isDarkMode = false
+        case .dark:
+            isDarkMode = true
+        }
+
+        UserDefaults.standard.set(option.rawValue, forKey: UserDefaults.Key.darkMode.rawValue)
+        GripSDK.setDarkMode(isDarkMode)
     }
 
     private func setupViews() {
-        let tableView = UITableView(frame: .zero)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = 0
         tableView.sectionFooterHeight = 0
         tableView.contentInset = .init(top: 20, left: 0, bottom: 0, right: 0)
-        tableView.register(SettingsSwitchTableViewCell.self, forCellReuseIdentifier: "Settings")
+        tableView.sectionHeaderHeight = 15
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
@@ -110,184 +203,6 @@ extension OptionsViewController {
     private func setupLayoutConstraints() {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-        }
-    }
-}
-
-final class SettingsSwitchTableViewCell: UITableViewCell {
-    private weak var iconImageView: UIImageView!
-    private weak var stackView: UIStackView!
-    private weak var titleLabel: UILabel!
-    private weak var descLabel: UILabel!
-    private weak var switchView: UISwitch!
-    private weak var separatorView: UIView!
-
-    private var disposeBag = DisposeBag()
-
-    var iconImage: UIImage? {
-        didSet {
-            iconImageView.image = iconImage
-            iconImageView.snp.updateConstraints {
-                $0.width.equalTo(iconImage == nil ? 0 : 40)
-            }
-        }
-    }
-
-    var title: String? {
-        didSet {
-            titleLabel.text = title
-        }
-    }
-
-    var desc: String? {
-        didSet {
-            descLabel.text = desc
-            descLabel.isHidden = desc == nil
-        }
-    }
-
-    var descHighlight: String? {
-        didSet {
-            desc = descHighlight
-            descLabel.textColor = .black
-        }
-    }
-
-    var on = false {
-        didSet {
-            switchView.setOn(on, animated: false)
-        }
-    }
-
-    var enabled = true {
-        didSet {
-            self.enabled(enabled)
-        }
-    }
-
-    var switchValueSubject: AnyObserver<Bool>? {
-        didSet {
-            guard let switchValueSubject = switchValueSubject else {
-                return
-            }
-
-            switchView.rx.controlEvent(.valueChanged)
-                .withLatestFrom(switchView.rx.value)
-                .asDriver(onErrorJustReturn: false)
-                .drive(switchValueSubject)
-                .disposed(by: disposeBag)
-        }
-    }
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        setupViews()
-        setupLayoutConstraints()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        enabled = true
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        switchView.layer.cornerRadius = switchView.frame.height / 2
-    }
-
-    func setItem(title: String, isSwitchOn: Bool, switchOnOffHandler: @escaping (Bool) -> Void) {
-        self.title = title
-        self.on = isSwitchOn
-
-        switchView.rx.controlEvent(.valueChanged)
-            .withLatestFrom(switchView.rx.value)
-            .subscribe(onNext: switchOnOffHandler)
-            .disposed(by: disposeBag)
-    }
-}
-
-private extension SettingsSwitchTableViewCell {
-    func enabled(_ enabled: Bool) {
-        switchView.isEnabled = enabled
-        switchView.alpha = enabled ? 1 : 0.3
-        titleLabel.alpha = enabled ? 1 : 0.3
-        descLabel.alpha = enabled ? 1 : 0.3
-    }
-
-    func setupViews() {
-        selectionStyle = .none
-        contentView.backgroundColor = .gray
-        translatesAutoresizingMaskIntoConstraints = false
-
-        let iconImageView = UIImageView()
-        iconImageView.contentMode = .left
-        contentView.addSubview(iconImageView)
-        self.iconImageView = iconImageView
-
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 3
-        contentView.addSubview(stackView)
-        self.stackView = stackView
-
-        let titleLabel = UILabel()
-        titleLabel.font = .systemFont(ofSize: 15)
-        titleLabel.textColor = .white
-        stackView.addArrangedSubview(titleLabel)
-        self.titleLabel = titleLabel
-
-        let descLabel = UILabel()
-        descLabel.font = .systemFont(ofSize: 12)
-        descLabel.textColor = .yellow
-        descLabel.numberOfLines = 0
-        descLabel.isHidden = true
-        stackView.addArrangedSubview(descLabel)
-        self.descLabel = descLabel
-
-        let switchView = UISwitch()
-        switchView.tintColor = .black
-        switchView.backgroundColor = .white
-        switchView.onTintColor = .blue
-        contentView.addSubview(switchView)
-        self.switchView = switchView
-
-        let separatorView = UIView()
-        separatorView.backgroundColor = .black
-        contentView.addSubview(separatorView)
-        self.separatorView = separatorView
-    }
-
-    func setupLayoutConstraints() {
-        iconImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(20)
-            make.width.equalTo(0)
-        }
-
-        stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-16)
-            make.leading.equalTo(iconImageView.snp.trailing)
-            make.trailing.equalTo(switchView.snp.leading).offset(-5)
-        }
-
-        switchView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-20)
-        }
-
-        separatorView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(1)
         }
     }
 }

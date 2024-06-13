@@ -54,15 +54,6 @@ extension FeedViewController: GripInAppWebViewControllerDelegate {
 }
 
 extension FeedViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let url = URL(string: "https://m.naver.com")!
-        let gripUrl = GripURL(webUrl: url)
-        let vc = GripSDK.makeGripInAppWebViewController(url: gripUrl)
-        vc.delegate = self
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
-    }
-
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         (cell as? FeedCollectionViewCell)?.notifyCellWillDisplay()
     }
@@ -105,7 +96,13 @@ extension FeedViewController: UICollectionViewDataSource {
                 }
             }
 
-            cell.setItem(contentTappedBlock: contentTappedBlock, playButtonTappedBlock: playButtonTappedBlock, muteStateChangedBlock: muteStateChangedBlock)
+            let footerButtonTappedBlock: () -> Void = {
+                GripSDK.gripContentViewFooterButtonTapped()
+
+                NotificationCenter.default.post(name: .moveToMainTabBar, object: nil, userInfo: [NotificationCenter.UserInfoKey.tab.rawValue: 1])
+            }
+
+            cell.setItem(contentTappedBlock: contentTappedBlock, playButtonTappedBlock: playButtonTappedBlock, muteStateChangedBlock: muteStateChangedBlock, footerButtonTappedBlock: footerButtonTappedBlock)
 
             return cell
 
