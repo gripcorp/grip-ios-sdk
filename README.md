@@ -220,8 +220,9 @@ class HomeViewController: UIViewController {
 
 # 커머스탭 연동
 커머스탭 ViewController는 `GripSDK.makeGripSubTabViewController()`를 호출하여 인스턴스를 얻을 수 있습니다.
+content inset이 필요한경우 파라미터로 넣어주세요 (샘플앱의 경우 필요없기에 .zero 전달)
 ```swift
-let viewController = GripSDK.makeGripSubTabViewController()
+let viewController = GripSDK.makeGripSubTabViewController(contentInset: .zero)
 viewController.delegate = self
 ```
 
