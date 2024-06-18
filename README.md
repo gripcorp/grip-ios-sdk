@@ -181,7 +181,7 @@ func willOpenUrlToPlayVideo(url: GripURL) {
 }
 ```
 
-홈 컴포넌트 푸터 버튼 클릭시 `GripSDK.notifyFooterButtonTapped()` 메서드 호출이 필요합니다. 카카오 스토리의 경우 3탭(커머스탭)으로 이동하는 처리도 필요합니다. 
+홈 컴포넌트 푸터 버튼 클릭시 `GripSDK.gripContentViewFooterButtonTapped()` 메서드 호출이 필요합니다. 카카오 스토리의 경우 3탭(커머스탭)으로 이동하는 처리도 필요합니다. 
 ```swift
 footerButton.addAction(UIAction { _ in
     // 카카오 스토리의 경우 3탭(커머스탭)으로 이동
@@ -193,11 +193,11 @@ footerButton.addAction(UIAction { _ in
 동영상 자동 재생 처리를 위해 홈 컴포넌트 Cell이 보여지고 사라질 때 아래 메서드를 호출해야 합니다.
 ```swift
 func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    gripContentView?.notifyCellWillDisplay()
+    gripContentView.collectionViewCellWillDisplay()
 }
 
 func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    gripContentView?.notifyCellDidEndDisplaying()
+    gripContentView.collectionViewCellDidEndDisplaying()
 }
 ```
 
