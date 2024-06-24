@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.source            = {
     :http => 'https://github.com/gripcorp/grip-ios-sdk/releases/download/1.0.7/GripFramework.xcframework.zip',
-    :sha256 => '7f77b3b93299f78da0613667ace14b88c59a6b2b4d27eaae92ece610b055b02c'
+    :sha256 => 'b825d7f12296daaeafafbb4fac3172a4cb5ea834307036cb23d05715d4b69b5b'
   }
 
   s.swift_version     = '5.0'
