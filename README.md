@@ -241,6 +241,27 @@ extension SampleNavigator: GripSubTabWebViewControllerDelegate {
 }
 ```
 
+커머스탭의 WebView에서 에러가 발생시 아래 `GripSubTabWebViewControllerDelegate` delegate 메서드가 호출됩니다.
+```swift
+func didReceiveError(_ error: NSError) {
+    print("SubTabViewControlelr did receive error: \(error)")
+}
+```
+
+단, 네트워크 단절과 같은 상황에서도 에러가 전달되니 참고부탁드립니다.
+네트워크 연결 오류 코드인지 확인하는 코드
+```swift
+if let urlError = error as? URLError {
+    // 네트워크 연결 오류 코드 확인
+    switch urlError.code {
+	case .notConnectedToInternet, .timedOut, .cannotFindHost, .cannotConnectToHost:
+	    return true
+	default:
+	    return false
+	}
+}
+```
+
 # 그립 인앱 브라우저 연동
 그립 인앱 브라우저 연동이 필요시에 아래와 같이 인앱 브라우저를 띄울 수 있습니다.
 ```swift
