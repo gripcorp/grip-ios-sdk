@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = 'GripFramework'
-  s.version           = '1.0.16'
+  s.version           = '1.0.17'
   s.summary           = 'Grip iOS SDK'
   s.description       = <<-DESC
                         GripFramework is an iOS-exclusive SDK for embedding live commerce content.
@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.authors           = { 'gripcorp' => 'ios_dev@gripcorp.co' }
 
   s.source            = {
-    :http => 'https://github.com/gripcorp/grip-ios-sdk/releases/download/1.0.16/GripFramework.xcframework.zip',
-    :sha256 => '220a05f0bc2127442f5dd723f1fd61ff5247768a6592e8cc4c46632350de2f69'
+    :http => 'https://github.com/gripcorp/grip-ios-sdk/releases/download/1.0.17/GripFramework.xcframework.zip',
+    :sha256 => '98b86a013b337ca6aa0f4d635dadbffd3a47ffb9a4b9728c70168335e115ba92'
   }
 
   s.swift_version     = '5.0'
