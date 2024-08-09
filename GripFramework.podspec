@@ -26,4 +26,5 @@ Pod::Spec.new do |s|
   s.dependency 'Moya', '~> 15.0'
   s.dependency 'RxAppState', '~> 1.0'
   s.dependency 'ReachabilitySwift', '~> 5.2.0'
+  s.dependency 'MarqueeLabel', '~> 4.3.0'
 end
